@@ -4,11 +4,17 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-1">
           <h4 class="topHeader">Artists</h4>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-3 form-group">
+          <input type="text" class="form-control search" placeholder="Search">
+        </div>
+        <div class="col-md-4">
           <h4 class="topHeader">{{artist.name}}</h4>
+        </div>
+        <div class="col-md-4">
+          <controls></controls>
         </div>
       </div>
     </div>
@@ -36,7 +42,8 @@
 <script>
   import axios from 'axios'
   import Albums from '@/components/Albums'
-  const root = 'http://pi:8080/'
+  import Controls from '@/components/Controls'
+  const root = 'http://192.168.0.20:8080/'
   export default {
     name: 'home',
     data () {
@@ -56,7 +63,8 @@
         })
     },
     components: {
-      'albums': Albums
+      'albums': Albums,
+      'controls': Controls
     },
     methods: {
       open (link) {
@@ -90,7 +98,6 @@
   }
   .hand {
     cursor: pointer;
-    cursor: hand;
   }
   .topHeader {
     margin-bottom:20px;
@@ -104,12 +111,11 @@
     background-color: #2c3e50;
     border-color: transparent;
   }
-  .navbar-default .navbar-brand {
+  .navbar-default {
     color: #ffffff;
   }
   #artists{
-    margin-top:50px;
-    height: 750px;
+    height: 677px;
     overflow:hidden;
   }
   #artists:hover{
@@ -118,15 +124,19 @@
   .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 4px;
   }
-
   #footer{
-    margin-bottom:0px;
+    margin-bottom:0;
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 8px; /* Set the fixed height of the footer here */
-    line-height: 60px; /* Vertically center the text there */
+    height: 8px;
     background-color: #2c3e50;
   }
+
+  .search{
+    margin-top:10px;
+    height:25px;
+  }
+
 
 </style>

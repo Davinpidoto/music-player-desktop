@@ -17,17 +17,18 @@
 
 <script>
   import axios from 'axios'
+  const root = 'http://192.168.0.20:8080/'
   export default {
     props: ['artist'],
     methods: {
       playAlbum: function (id) {
-        axios.get('http://pi:8080/albums/' + id)
+        axios.get(root + 'albums/' + id)
           .catch(function (error) {
             console.log(error)
           })
       },
       playSong: function (id) {
-        axios.get('http://pi:8080/songs/' + id)
+        axios.get(root + 'songs/' + id)
           .then(function (response) {
           })
           .catch(function (error) {
@@ -39,21 +40,18 @@
 </script>
 
 <style>
-    #albums{
-    margin-top:50px;
-    height: 750px;
+  #albums{
+    height: 677px;
     overflow:hidden;
-    }
-
-    #albums:hover{
+  }
+  #albums:hover{
     overflow-y: scroll
-}
-    .panel-heading {
-        padding: 4px 4px;
-        font-weight: bold;
-        border-bottom: 1px solid transparent;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-    }
-
+  }
+  .panel-heading {
+    padding: 4px 4px;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
 </style>

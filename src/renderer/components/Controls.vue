@@ -16,7 +16,7 @@
     name: 'controls',
     methods: {
       stop: function () {
-        axios.get(root + 'stop/')
+        axios.get(root + 'stop')
           .then(function (response) {
           })
           .catch(function (error) {
@@ -24,7 +24,7 @@
           })
       },
       skip: function () {
-        axios.get(root + 'skip/')
+        axios.get(root + 'next')
           .then(function (response) {
           })
           .catch(function (error) {

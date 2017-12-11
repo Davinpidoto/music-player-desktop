@@ -50,6 +50,12 @@ const template = [
         click: function (menuItem, currentWindow) {
           currentWindow.webContents.send('load')
         }
+      },
+      {
+        label: 'Refresh',
+        click: function (menuItem, currentWindow) {
+          currentWindow.webContents.send('refresh')
+        }
       }
     ]
   },

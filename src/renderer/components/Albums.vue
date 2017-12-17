@@ -17,18 +17,17 @@
 
 <script>
   import axios from 'axios'
-  const root = 'http://192.168.0.20:8080/'
   export default {
     props: ['artist'],
     methods: {
       playAlbum: function (id) {
-        axios.get(root + 'albums/' + id)
+        axios.get(this.$base + 'albums/' + id)
           .catch(function (error) {
             console.log(error)
           })
       },
       playSong: function (id) {
-        axios.get(root + 'songs/' + id)
+        axios.get(this.$base + 'songs/' + id)
           .then(function (response) {
           })
           .catch(function (error) {

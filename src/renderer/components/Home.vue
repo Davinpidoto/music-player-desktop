@@ -1,49 +1,29 @@
 <template>
   <div>
     <nav class="navbar navbar-default navbar-fixed-top"></nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-1">
-          <h4>Artists</h4>
-        </div>
-        <div class="col-sm-3 form-group">
-          <input type="text" class="form-control search" v-model="search" placeholder="Search">
-        </div>
-        <div class="col-sm-4">
-          <h4>{{artist.name}}</h4>
-        </div>
-        <div class="col-sm-4">
-          <controls></controls>
+    <div class="col-sm-4">
+      <artists></artists>
+    </div>
+    <div class="col-sm-8">
+      <app-header :artist="artist"></app-header>
+
+
+      <div class="container">
+        <div class="row">
+          <albums :artist="artist"></albums>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4" id="artists">
-          <div class="panel panel-default">
-            <table class="table table-striped table-bordered">
-              <tbody>
-              <tr v-for="item in filteredArtists">
-                <td class="hand" v-on:click="getArtist(item.id)">{{item.name}}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <albums :artist="artist"></albums>
-      </div>
-    </div>
     <div id="footer"></div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import Albums from '@/components/Albums'
-  import Controls from '@/components/Controls'
-  const root = 'http://192.168.0.20:8080/'
-  const {ipcRenderer} = require('electron')
+  import AppHeader from '@/components/AppHeader'
+  import Artists from '@/components/Artists'
+  import axios from 'axios'
 
   export default {
     name: 'home',
@@ -55,31 +35,14 @@
       }
     },
     created () {
-      let fetchArtists = () => {
-        let self = this
-        axios.get(root + 'artists')
-          .then(function (response) {
-            self.artists = response.data
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      }
-      fetchArtists()
-      ipcRenderer.on('refresh', function () {
-        fetchArtists()
+      this.$eventHub.$on('test', id => {
+        this.getArtist(id)
       })
     },
     components: {
+      'artists': Artists,
       'albums': Albums,
-      'controls': Controls
-    },
-    computed: {
-      filteredArtists () {
-        return this.artists.filter(artist => {
-          return artist.name.toLowerCase().includes(this.search.toLowerCase())
-        })
-      }
+      'app-header': AppHeader
     },
     methods: {
       open (link) {
@@ -87,7 +50,7 @@
       },
       getArtist: function (id) {
         let self = this
-        axios.get(root + 'artists/' + id)
+        axios.get(this.$base + 'artists/' + id)
           .then(function (response) {
             self.$data.artist = response.data
           })
@@ -119,13 +82,7 @@
   .navbar-default {
     color: #ffffff;
   }
-  #artists{
-    height: 677px;
-    overflow:hidden;
-  }
-  #artists:hover{
-    overflow-y: scroll
-  }
+
   .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 4px;
   }
@@ -137,8 +94,5 @@
     height: 8px;
     background-color: #2c3e50;
   }
-  .search {
-    margin-top: 10px;
-    height: 25px;
-  }
+
 </style>

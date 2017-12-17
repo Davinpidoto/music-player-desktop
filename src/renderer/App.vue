@@ -7,7 +7,6 @@
 <script>
   import Home from '@/components/Home'
   import axios from 'axios'
-  const root = 'http://192.168.0.20:8080/'
   export default {
     name: 'music-player',
     components: {
@@ -16,7 +15,7 @@
   }
   const {ipcRenderer} = require('electron')
   ipcRenderer.on('load', function () {
-    axios.get(root + 'load')
+    axios.get(this.$base + 'load')
       .then(function (response) {
         self.artists = response.data
       })

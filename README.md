@@ -1,6 +1,6 @@
 # music-player-desktop
 
-> A music player
+> An electron music player front end for https://github.com/Davinpidoto/music-player
 
 #### Build Setup
 
